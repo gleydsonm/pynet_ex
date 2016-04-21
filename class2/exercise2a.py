@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 # Python + ansible - Exercise 2a
+# I'm using on this example a method to check for login failures. Also, the non
+# sensitive data are received directly by command line parameters
+#
 # Gleydson Mazioli da Silva <gleydsonmazioli@gmail.com>
 
 import sys
