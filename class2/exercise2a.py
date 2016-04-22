@@ -29,7 +29,6 @@ def telnet_login(remote_conn, username, password):
         remote_conn.write(username + '\n')
         output += remote_conn.read_until("assword:", TELNET_TIMEOUT)
         remote_conn.write(password + '\n')
-        output += remote_conn.read_until("uthentication failed", TELNET_TIMEOUT)
         return output
 
 
@@ -55,10 +54,11 @@ def main():
 
     conn_handle=telnet_connect(telnet_ip, telnet_port)
     output=telnet_login(conn_handle, telnet_username, telnet_password)
+    time.sleep(1)
+    output=conn_handle.read_very_eager()
 
-    time.sleep(4)    
-    expr=re.compile('uthentication failed')
-    if expr.search(output):
+    expr=re.compile('#')
+    if not expr.search(output):
         print 'Incorrect login or password. Exiting'
         sys.exit()
     else:
