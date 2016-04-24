@@ -110,10 +110,11 @@ def compare_values(mibname, val1, val2):
     '''
     Compare values
     '''
+    l_host = my_host[0]
     if val1 != val2:
         if verbose:
             print '%s: Values differ! Old: %s  New: %s' % (mibname, val1, val2)
-        mail_send('Alert: Configuration change in router', 'Hey, \nThe configuration on router '+my_host+'has been changed from '+val1+' to '+val2)
+            mail_send('Alert: Configuration change in router', 'Hey, The configuration on router' + l_host + ' has been changed from ' + val1 + ' to ' + val2)
 
 
 def main():
@@ -139,7 +140,7 @@ def main():
         print 'Run Last Saved: %s (last: %s)' % (running_last_saved, old_running_last_saved)
         print 'Start Lst Saved: %s (last: %s)' % (startup_last_saved, old_startup_last_saved)
 
-    compare_values('Uptime', old_sys_uptime, sys_uptime)
+    compare_values('Last Changed', old_running_last_changed, running_last_changed)
 
     # Array preparation to save data
     data_list = range(0)
