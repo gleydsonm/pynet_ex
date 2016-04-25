@@ -24,7 +24,7 @@ my_host = (my_ip, 8061)
 verbose = True
 mail_sender = 'gmazioli@localhost'
 # More than one recipient can be specified here
-mail_recipient = 'gmazioli kbyers'
+mail_recipient = 'gmazioli'
 smtp_host = 'localhost'
 # File format should be json or yaml
 file_fmt = 'json'
@@ -95,7 +95,7 @@ def load_saved_data(l_var, l_default, l_sys_uptime):
         if verbose:
             print 'File not found: exercise3-1.'+file_fmt
         return l_default
-    if l_var > l_sys_uptime:
+    if file_data[0][l_var] > l_sys_uptime:
         return l_default
     return file_data[0][l_var]
 
