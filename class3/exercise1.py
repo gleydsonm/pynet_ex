@@ -24,7 +24,7 @@ my_host = (my_ip, 8061)
 verbose = True
 mail_sender = 'gmazioli@localhost'
 # More than one recipient can be specified here
-mail_recipient = 'gmazioli'
+mail_recipient = 'gmazioli kbyers'
 smtp_host = 'localhost'
 # File format should be json or yaml
 file_fmt = 'json'
@@ -79,7 +79,7 @@ def save_data(l_var):
 
 
 
-def load_saved_data(l_var, l_default):
+def load_saved_data(l_var, l_default, l_sys_uptime):
     '''
     Load previous saved data
     '''
@@ -94,6 +94,8 @@ def load_saved_data(l_var, l_default):
     except IOError:
         if verbose:
             print 'File not found: exercise3-1.'+file_fmt
+        return l_default
+    if l_var > l_sys_uptime:
         return l_default
     return file_data[0][l_var]
 
@@ -111,10 +113,20 @@ def compare_values(mibname, val1, val2):
     Compare values
     '''
     l_host = my_host[0]
+    l_message = '''
+Hi,
+
+This is a gmazioli automated bot notification. Just to inform you about a configuration
+change that happened on the {0} router. 
+
+Last changed:  ({1})
+Current Change: ({2})
+'''.format(l_host, val1, val2)
+
     if val1 != val2:
         if verbose:
             print '%s: Values differ! Old: %s  New: %s' % (mibname, val1, val2)
-            mail_send('Alert: Configuration change in router', 'Hey, The configuration on router' + l_host + ' has been changed from ' + val1 + ' to ' + val2)
+            mail_send('Alert: Configuration change in router', l_message)
 
 
 def main():
@@ -129,10 +141,10 @@ def main():
     startup_last_saved = get_snmp_data(my_host, snmp_user, '1.3.6.1.4.1.9.9.43.1.1.3.0')
     print 'Using file format: %s' % (file_fmt)
 
-    old_sys_uptime = load_saved_data('sys_uptime', sys_uptime)
-    old_running_last_changed = load_saved_data('run_last_changed', running_last_changed)
-    old_running_last_saved = load_saved_data('run_last_saved', running_last_saved)
-    old_startup_last_saved = load_saved_data('start_last_saved', startup_last_saved)
+    old_sys_uptime = load_saved_data('sys_uptime', sys_uptime, sys_uptime)
+    old_running_last_changed = load_saved_data('run_last_changed', running_last_changed, sys_uptime)
+    old_running_last_saved = load_saved_data('run_last_saved', running_last_saved, sys_uptime)
+    old_startup_last_saved = load_saved_data('start_last_saved', startup_last_saved, sys_uptime)
 
     if verbose:
         print 'Uptime: %s (last: %s)' % (sys_uptime, old_sys_uptime)
