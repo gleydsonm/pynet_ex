@@ -54,14 +54,13 @@ def send_command(remote_conn, cmd):
     time.sleep(1)
     return remote_conn.read_very_eager()
 
-print sys.argv
-if len(sys.argv) < 4:
-    sys.exit('Parameters: ' + sys.argv[0] + ' [dst_ip] [port] [username]')
-
 def main():
     '''
     Read connections parameters from the command line
     '''
+    print sys.argv
+    if len(sys.argv) < 4:
+        sys.exit('Parameters: ' + sys.argv[0] + ' [dst_ip] [port] [username]')
     telnet_ip = sys.argv[1]
     telnet_port = sys.argv[2]
     telnet_username = sys.argv[3]
@@ -91,4 +90,3 @@ def main():
 if __name__ == '__main__':
     main()
 
-quit()
