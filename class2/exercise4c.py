@@ -31,21 +31,20 @@ def main():
     '''
     Main function
     '''
-    routers = []
-    routers.append('50.76.53.27|7961|galileo')
-    routers.append('50.76.53.27|8061|galileo')
+    routers = [
+        ('50.76.53.27|7961|galileo'),
+        ('50.76.53.27|8061|galileo')
+    ]
 
     for router in routers:
-        my_ip = router.split('|')[0]
-        my_port = router.split('|')[1]
-        my_community = router.split('|')[2]
+        my_ip, my_port, my_community = router
         print "\n\n"
         print '%s %s %s \n' % (my_ip, my_port, my_community)
         output = snmp_print_sysname(my_ip, my_port, my_community)
         print output
         output = snmp_print_sysdescr(my_ip, my_port, my_community)
         print output
-        print '-------------------------------------------------------------'
+        print '-'*50
 
 if __name__ == "__main__":
     main()
