@@ -1,0 +1,4 @@
+---
+- name: Generate switch config files
+  template: src=switch.j2 dest={{destdir}}/{{item.hostname}}-ex2.txt
+  with_items: switches
