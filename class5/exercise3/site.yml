@@ -1,0 +1,13 @@
+---
+# Exercise 1, Class 5
+# Gleydson Mazioli <gleydsonmazioli@gmail.com>
+# In this example, I use a global variavle destdir to make configuration files
+# saving more flexible
+
+- name: Generate 5 switches configuration files
+  hosts: local
+  vars: 
+    destdir: /home/gmazioli/ANSIBLE/CFGS
+
+  roles:
+    - switches
