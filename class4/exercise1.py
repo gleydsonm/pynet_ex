@@ -43,7 +43,8 @@ def main():
     conn = paramiko.SSHClient()
     conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     try:
-        conn.connect(ip_addr, username=username, password=password, look_for_keys=False, allow_agent=False, port=port)
+        conn.connect(ip_addr, username=username, password=password, 
+                     look_for_keys=False, allow_agent=False, port=port)
     except socket.error:
         sys.exit('Unable to connect to the remote host. Check IP and port')
     shell = conn.invoke_shell()
