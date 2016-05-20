@@ -1,0 +1,17 @@
+- name: Cisco change logging buffer 
+  hosts: cisco
+  gather_facts: False
+  
+  tasks:
+  - name: Cisco change logging buffer 
+    cisco_file_transfer:
+      source_file="/home/gmazioli/ANSIBLE/gmazioli-cisco_ch_logging.txt"
+      dest_file=gmazioli-cisco_ch_logging.txt
+      overwrite=true
+      enable_scp=true
+      host={{ host }}
+      port={{ port }}
+      username={{ username }}
+      password={{ password }}
+
+
