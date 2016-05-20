@@ -1,0 +1,38 @@
+---
+
+- name: Gmaz Create Arista VLANs
+  hosts: arista
+
+  tasks:
+    - name: create GmazBLUE VLAN
+      eos_vlan: name=GmazBLUE vlanid=997
+          username={{ eapi_username }}
+          password={{ eapi_password }}
+          host={{ eapi_hostname }}
+          port={{ eapi_port }}
+          transport=https
+
+    - name: create GmazRED VLAN
+      eos_vlan: name=GmazRED vlanid=998
+          username={{ eapi_username }}
+          password={{ eapi_password }}
+          host={{ eapi_hostname }}
+          port={{ eapi_port }}
+          transport=https
+
+    - name: create GmazGREEN VLAN
+      eos_vlan: name=GmazGREEN vlanid=999
+          username={{ eapi_username }}
+          password={{ eapi_password }}
+          host={{ eapi_hostname }}
+          port={{ eapi_port }}
+          transport=https
+
+    - name: Write to NVRAM memory 
+      eos_command: commands="write memory"
+           username={{ eapi_username }}
+           password={{ eapi_password }}
+           host={{ eapi_hostname }}
+           port={{eapi_port }}
+           transport=https
+
