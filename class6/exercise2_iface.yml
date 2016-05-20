@@ -1,0 +1,32 @@
+---
+
+- name: Create Arista Ethernet description 
+  hosts: arista
+  
+  tasks:
+    - name: Setting Ethernet3 description
+      eos_interface: name=Ethernet3 description=" *** IN USE by Gmazioli *** "
+           username={{ eapi_username }}
+           password={{ eapi_password }}
+           host={{ eapi_hostname }}
+           port={{eapi_port }}
+           transport=https
+
+    - name: Set Ethernet3 to access mode, VLAN 999
+      eos_switchport: name={{ item }} mode=access access_vlan=999
+           username={{ eapi_username }}
+           password={{ eapi_password }}
+           host={{ eapi_hostname }}
+           port={{eapi_port }}
+           transport=https
+      with_items:
+          - Ethernet3
+
+    - name: Write to NVRAM memory 
+      eos_command: commands="write memory"
+           username={{ eapi_username }}
+           password={{ eapi_password }}
+           host={{ eapi_hostname }}
+           port={{eapi_port }}
+           transport=https
+
