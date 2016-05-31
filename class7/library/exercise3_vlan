@@ -1,0 +1,75 @@
+#!/usr/bin/env python
+DOCUMENTATION = '''
+---
+module: exercise3_vlan
+short_description: This module operate in a indepotent way
+to create/remove/change a VLAN in the switch
+'''
+
+#  Ansible 2.2, so specific module import are possible
+# but lab uses 1.7.4, so I disabled the specific import 
+# from ansible.module_utils.basic import AnsibleModule
+from ansible.module_utils.basic import *
+import pyeapi
+
+
+def check_vlan_exist(l_conn, vlan_id):
+    '''
+    Check if a VLAN exist
+    '''
+    cmd = 'show vlan id %s' % (vlan_id)
+    try:    
+        ret = l_conn.enable(cmd)
+        vlan_list = ret[0]['result']
+        if vlan_list['vlans'][str(vlan_id)]:
+            return True
+    except pyeapi.eapilib.CommandError:
+        return False
+    return False
+
+def check_needed_changes(l_conn, vlan_id):
+    '''
+    Check if a change is needed. Only reverse exit codes from
+    check_vlan_exist
+    '''
+    if check_vlan_exist(l_conn, vlan_id):
+        return False 
+    return True
+
+def main():
+    '''
+    Handle VLAN creation on arista switches (taking care to
+    return always a JSON data instead of printed data).
+    '''
+    vlanmodule = AnsibleModule(
+        argument_spec=dict(
+            host_sw=dict(required=True),
+            vlan_id=dict(required=True, type='int'),
+            vlan_name=dict(required=True, type='str')
+        ),
+        supports_check_mode=True
+    )
+
+    # Read the data that Ansible feed on previos dictionary
+    vlan_id = vlanmodule.params['vlan_id']
+    vlan_name = vlanmodule.params['vlan_name']
+    host_sw = vlanmodule.params['host_sw']
+
+    # Connect to the remote host
+    conn = pyeapi.connect_to(host_sw)
+   
+    if vlanmodule.check_mode:
+        vlanmodule.exit_json(changed=check_needed_changes(conn, vlan_id))
+    else:
+        if check_vlan_exist(conn, vlan_id):
+            vlanmodule.exit_json(msg="VLAN is already configured", changed=False)
+            commands = [ 'vlan '+vlan_id, 'name '+vlan_name ]
+            conn.config(commands)
+        else:
+            msg="Adding VLAN %s and name %s" % (vlan_id, vlan_name)
+            vlanmodule.exit_json(msg=msg, changed=True)
+
+if __name__ == "__main__":
+    main()
+
+   
