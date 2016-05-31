@@ -1,0 +1,9 @@
+---
+
+- name: Gmaz Create Arista VLANs
+  hosts: arista
+
+  tasks:
+    - name: create GmazBLUE VLAN
+      exercise3_vlan: host_sw={{ inventory_hostname }} vlan_name=GmazBLUE vlan_id=999
+
