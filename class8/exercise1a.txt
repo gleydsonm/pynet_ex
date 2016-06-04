@@ -1,0 +1,2 @@
+Exercise 1 done in ~/DJANGOX directory.
+
