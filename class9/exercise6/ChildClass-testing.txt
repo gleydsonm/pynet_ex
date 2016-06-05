@@ -1,0 +1,13 @@
+$ python
+Python 2.7.9 (default, Mar  1 2015, 12:57:24) 
+[GCC 4.9.2] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from mytest import *
+>>> a = MyClass('Hello', 'Not Hello', 'World')
+>>> b = MyChildClass('Hello', 'Not Hello', 'World')
+>>> a.hello()
+'Hello: Hello World'
+>>> b.hello()
+'ChildClass: Hello World (thats all folks)'
+>>> 
+
