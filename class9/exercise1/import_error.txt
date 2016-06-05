@@ -1,0 +1,10 @@
+1$ python
+Python 2.7.9 (default, Mar  1 2015, 12:57:24) 
+[GCC 4.9.2] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import mytest
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ImportError: No module named mytest
+>>> 
+
