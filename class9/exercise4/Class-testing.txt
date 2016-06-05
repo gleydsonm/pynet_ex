@@ -1,0 +1,27 @@
+$ python
+Python 2.7.9 (default, Mar  1 2015, 12:57:24) 
+[GCC 4.9.2] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from mytest import MyClass
+>>> a = MyClass()
+>>> a.x
+'param1'
+>>> a.y
+'param2'
+>>> a.z
+'param3'
+>>> b = MyClass('Hello', 'Not Hello', 'World')
+>>> b.x
+'Hello'
+>>> b.y
+'Not Hello'
+>>> b.z
+'World'
+>>> b.hello()
+'Hello: Hello World'
+>>> b.not_hello()
+'Not Hello: Not Hello World'
+>>> quit
+Use quit() or Ctrl-D (i.e. EOF) to exit
+>>> quit()
+
