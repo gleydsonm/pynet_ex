@@ -1,0 +1,19 @@
+$ python
+Python 2.7.9 (default, Mar  1 2015, 12:57:24) 
+[GCC 4.9.2] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import mytest
+>>> mytest.func1()
+World
+>>> mytest.func1('Testing 123')
+Testing 123
+>>> mytest.func2()
+Simple
+>>> mytest.func2('Testing 123')
+Testing 123
+>>> mytest.func3()
+Whatever
+>>> mytest.func3('Testing 123')
+Testing 123
+>>> 
+
