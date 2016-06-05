@@ -1,0 +1,24 @@
+$ python
+Python 2.7.9 (default, Mar  1 2015, 12:57:24) 
+[GCC 4.9.2] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from mytest import func1
+>>> from mytest import func2, func3
+>>> for i in [None, 'Testing 123']:
+...  if i is None:
+...   func1()
+...   func2()
+...   func3()
+...  else:
+...   func1(i)
+...   func2(i)
+...   func3(i)
+... 
+World
+Simple
+Whatever
+Testing 123
+Testing 123
+Testing 123
+>>> 
+
